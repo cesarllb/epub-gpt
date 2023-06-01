@@ -1,26 +1,23 @@
 import poe
 from selenium import webdriver
 from epub_process.epub_processor import EpubProcessor
-from gpt_client_interface import IGPTClient
-
+from epub_lib.gpt.interface import IGPTClient
 
 
 class PoeGPT(IGPTClient):
-    __client: object
-    __POE_API_TOKEN:str
-    __epub:EpubProcessor
 
-    def __init__(self, epub_path:str):
-        self.__epub = EpubProcessor(epub_path)
-        self.__POE_API_TOKEN = "BdYAoutUrMrv3Y1q5dOjpg%3D%3D"
-        self.__client = poe.Client(self.__POE_API_TOKEN)
+    def __init__(self, TOKEN:str, model:str, timeout:int = 30):
+        self._epub = EpubProcessor()
+        self._client = poe.Client(TOKEN)
+        self._model = model
+        self._timeout = timeout
 
     def send_message(self, message: str) -> str:
-        for chunk in self.__client.send_message("chinchilla", message, timeout = 30):
+        for chunk in self._client.send_message(self._model, message, timeout = self._timeout):
             pass
         return chunk["text"]
     
-    def __limit_num_words_to_context_windows_size(self, list_p:list) -> str:
+    def _limit_num_words_to_context_windows_size(self, list_p:list) -> str:
         return_str = ''
         for p in list_p:
             return_str += '\n'
@@ -33,19 +30,19 @@ class PoeGPT(IGPTClient):
 
     
     def resume(self, topic:str) -> str:
-        all_search_text = self.__epub.repo.search_str(str_to_find=topic)
+        all_search_text = self._epub.repo.search_str(str_to_find=topic)
         action = '--- Resume el texto anterior de manera clara en el idioma del texto'
         if all_search_text:
-            resized_str = self.__limit_num_words_to_context_windows_size(all_search_text)
+            resized_str = self._limit_num_words_to_context_windows_size(all_search_text)
             return self.send_message(resized_str + action)
         else:
             return self.send_message(topic + action)
     
     def explain_text(self, text:str) -> str:
-        all_search_text = self.__epub.repo.search_str(str_to_find=text)
+        all_search_text = self._epub.repo.search_str(str_to_find=text)
         action = '--- Explica el texto anterior de manera clara en el idioma del texto'
         if all_search_text:
-            resized_str = self.__limit_num_words_to_context_windows_size(all_search_text)
+            resized_str = self._limit_num_words_to_context_windows_size(all_search_text)
             return self.send_message(resized_str + action)
         else:
             return self.send_message(text + action)
@@ -54,9 +51,9 @@ class PoeGPT(IGPTClient):
         if len(noun.split(' ')) > 4:
             raise Exception('El sustantivo propio debe tener menos de 4 palabras')
         
-        all_search_text = self.__epub.repo.search_str(str_to_find=noun)
+        all_search_text = self._epub.repo.search_str(str_to_find=noun)
         if all_search_text:
-            resized_str = self.__limit_num_words_to_context_windows_size(all_search_text)
+            resized_str = self._limit_num_words_to_context_windows_size(all_search_text)
             action = '--- Resume en una lista las caracteristicas de este sustantivo propio'
             return self.send_message(resized_str + action)
 
@@ -69,10 +66,10 @@ class PoeGPT(IGPTClient):
             action = '--- Define formalmente la palabra anterior'
             return self.send_message(word + action)
         else:
-            return 'Lo sentimos, solo se puede definir una sola palabra'
+            return 'Lo sentimos, no se puede definir más de una palabra. '
     
     
-    def __get_cookie_value(self):
+    def _get_cookie_value(self):
         cookie_value = ''
         for browser in ['edge', 'firefox', 'chrome', 'safari']:
             try:
@@ -90,5 +87,5 @@ class PoeGPT(IGPTClient):
         return cookie_value
 
 
-poe_api_var = PoeGPT('/home/cesar-linares/Documentos/lite_project/test.epub')
-print(poe_api_var.define_word('casa'))
+# poe_api_var = PoeGPT('/home/cesar-linares/Documentos/lite_project/test.epub')
+# print(poe_api_var.define_word('casa'))

@@ -17,7 +17,7 @@ class IVectorStore(ABC):
     #     ...
 
     # @abstractmethod
-    # def __create_collection(self, colection_name:str):
+    # def _create_collection(self, colection_name:str):
     #     ...
 
     @abstractmethod

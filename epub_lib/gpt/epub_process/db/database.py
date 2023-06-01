@@ -12,28 +12,28 @@ class XhtmlJsonElement(BaseModel):
 
 
 class ImplementedJsonDB(IJsonDB):
-    __db:pickledb
-    __xhtml_index:int
+    _db:pickledb
+    _xhtml_index:int
 
     def __init__(self, db_name:str):
-        self.__db = pickledb.load(db_name+'.db', False)
-        self.__xhtml_index = 0
+        self._db = pickledb.load(db_name+'.db', False)
+        self._xhtml_index = 0
 
 
     def insert(self, xhtml_file_name:str, text: str, p_list:list) -> None:
         xhtml = XhtmlJsonElement(xhtml_file_name = xhtml_file_name, text = text, p_list = p_list)
-        self.__db.set(str(self.__xhtml_index), xhtml.dict())
-        self.__db.dump()
-        self.__xhtml_index += 1
+        self._db.set(str(self._xhtml_index), xhtml.dict())
+        self._db.dump()
+        self._xhtml_index += 1
     
     def get_xhtml(self, index:int = None, xhtml_file_name:str = None) -> dict:
         if not index and not xhtml_file_name:
             raise Exception("Both argument(index and xhtml_file_name) can't be None")
         elif index:
-            return self.__db.get(str(index))
+            return self._db.get(str(index))
         elif xhtml_file_name:
             count = 0
-            for dict in self.__db.get(str(count)):
+            for dict in self._db.get(str(count)):
                 if dict['xhtml_file_name'] == xhtml_file_name:
                     return dict
                 count+=1
@@ -42,15 +42,15 @@ class ImplementedJsonDB(IJsonDB):
         if index is None and not xhtml_file_name:
             raise Exception("Both argument(index and xhtml_file_name) can't be None")
         elif index:
-            self.__db.rem(str(index))
-            self.__db.dump()
+            self._db.rem(str(index))
+            self._db.dump()
             return True
         elif xhtml_file_name:
             count = 0
-            while(self.__db.get(str(count))):
-                if self.__db.get(str(count))['xhtml_file_name'] == xhtml_file_name:
-                    self.__db.rem(str(count))
-                    self.__db.dump()
+            while(self._db.get(str(count))):
+                if self._db.get(str(count))['xhtml_file_name'] == xhtml_file_name:
+                    self._db.rem(str(count))
+                    self._db.dump()
                     return True
                 count+=1
         else:
@@ -74,15 +74,15 @@ class ImplementedJsonDB(IJsonDB):
         count = 0
         list_of_ocurrences = []
         if not num_words_around:
-            while(self.__db.get(str(count))):
-                for p in self.__db.get(str(count))['p_list']:
+            while(self._db.get(str(count))):
+                for p in self._db.get(str(count))['p_list']:
                     if str_to_find in p:
                         list_of_ocurrences.append(p)
                 count+=1
             return heapq.nlargest(3, list_of_ocurrences, key=len)
         elif num_words_around:
-            while(self.__db.get(str(count))):
-                text = self.__db.get(str(count))['text']
+            while(self._db.get(str(count))):
+                text = self._db.get(str(count))['text']
                 text_list_words = text.split()
                 str_to_find_list_words = str_to_find.split()
                 pos_str_to_find_in_text= find_sublist(str_to_find_list_words, text_list_words)

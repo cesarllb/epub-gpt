@@ -9,9 +9,9 @@ class VectorStore(IVectorStore):
 
     def __init__(self, colection_name:str):
         self.client = chromadb.Client()
-        self.collection = self.__create_collection(colection_name)
+        self.collection = self._create_collection(colection_name)
         
-    def __create_collection(self, colection_name:str):
+    def _create_collection(self, colection_name:str):
         return self.client.get_or_create_collection(colection_name)
 
     def add(self, document:list, ids:list, metadata:list = None):
@@ -39,9 +39,9 @@ class VectorStore(IVectorStore):
 
     
 
-#Chroma Vector Store
-vector = VectorStore("test")
-doc = '''Los seudocelomados1​, (Pseudocoelomata), asquelmintos (Aschelminthes), nematelmintos (Nemathelminthes) o blastocelomados (Blastoceolomata, nombre propuesto por Brusca & Brusca)2​ son una agrupación de filos cuya cavidad general no es de origen mesodérmico y recibe el nombre seudoceloma (o seudocele) o blastoceloma. Antiguamente formaron un filo único, los asquelmintos (del griego askos, ampolla o saco y helmins gusanos, gusanos que tienen un tubo, el digestivo, dentro de otro, la pared corporal), pero las diversas clases que lo componían son hoy consideradas como filos independientes.'''
-vector.add(doc.split(' '), 
-            [str(i) for i in range(1, len(doc.split(' '))+1)])
-print(vector.get_synonym('identificador'))
+# #Chroma Vector Store
+# vector = VectorStore("test")
+# doc = '''Los seudocelomados1​, (Pseudocoelomata), asquelmintos (Aschelminthes), nematelmintos (Nemathelminthes) o blastocelomados (Blastoceolomata, nombre propuesto por Brusca & Brusca)2​ son una agrupación de filos cuya cavidad general no es de origen mesodérmico y recibe el nombre seudoceloma (o seudocele) o blastoceloma. Antiguamente formaron un filo único, los asquelmintos (del griego askos, ampolla o saco y helmins gusanos, gusanos que tienen un tubo, el digestivo, dentro de otro, la pared corporal), pero las diversas clases que lo componían son hoy consideradas como filos independientes.'''
+# vector.add(doc.split(' '), 
+#             [str(i) for i in range(1, len(doc.split(' '))+1)])
+# print(vector.get_synonym('identificador'))
