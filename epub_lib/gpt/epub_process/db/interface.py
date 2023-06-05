@@ -8,7 +8,7 @@ class IJsonDB(ABC):
         ...
 
     @abstractmethod
-    def insert(self, xhtml_file_name:str, text: str, p_list:list):
+    def insert(self, xhtml_file_name:str, p_list:list):
         ...
 
     @abstractmethod
@@ -20,6 +20,6 @@ class IJsonDB(ABC):
         ...
 
     @abstractmethod
-    def search_str(self, str_to_find: str, num_words_around:int = None) -> str:
+    def search_str(self, str_to_find: str) -> str:
         ...
     
