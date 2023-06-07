@@ -1,8 +1,8 @@
 from kink import di
 from os import getenv
 from ebooklib import epub
-from epub_lib.gpt.poe_api import PoeGPT
-from epub_lib.gpt.epub_process.db.database import ImplementedJsonDB
+from gpt.poe_api import PoeGPT
+from gpt.epub_process.db.database import ImplementedJsonDB
 
 
 def config(epub_path:str = None, db_name:str = None):

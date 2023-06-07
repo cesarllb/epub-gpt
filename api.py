@@ -1,4 +1,4 @@
-from epub_lib.gpt.repo import GptRepo
+from gpt.repo import GptRepo
 from upload_epub import process_upload_epub
 from fastapi import FastAPI, File, UploadFile
 
@@ -10,7 +10,6 @@ def upload_epub(file: UploadFile = File(...)) -> str:
     global gpt_repo
     gpt_repo =  process_upload_epub(file)
     return 'Success' #{"operation": "epub_gpt.upload_epub", "file_status": "success"}
-
 
 @app.post("/resume/")
 def resume(topic:str) -> str:
