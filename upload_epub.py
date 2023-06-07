@@ -4,15 +4,10 @@ from pathlib import Path
 from fastapi import UploadFile
 from inyection import config
 from tempfile import NamedTemporaryFile
-from epub_lib.gpt.repo import GptRepo
+from gpt.repo import GptRepo
 
 
 def save_upload_file_tmp(upload_file: UploadFile) -> Path:
-    # file_location = f"./{upload_file.filename}"
-    # with open(file_location, "wb+") as file_object:
-    #     shutil.copyfileobj(upload_file.file, file_object)
-    # return file_location
-
     try:
         suffix = Path(upload_file.filename).suffix
         with NamedTemporaryFile(delete=False, suffix=suffix) as tmp:

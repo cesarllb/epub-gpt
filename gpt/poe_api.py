@@ -15,7 +15,7 @@ class PoeGPT(IGPTClient):
     def send_message(self, message: str) -> str:
         for chunk in self._client.send_message(self._model, message, timeout = self._timeout):
             pass
-        return chunk["text"]        
+        return chunk["text"]       
     
     def _get_cookie_value(self):
         cookie_value = ''
