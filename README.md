@@ -5,10 +5,15 @@ This project is an EPUB document processor designed to enhance your reading expe
 # **Features**
 
 **Upload an EPUB file for processing:** Upload an EPUB file to be processed and stored in a vector or key-value database.
+
 **Generate a summary:** Generate a summary of the uploaded EPUB file on a given topic.
+
 **Explain text:** Provide an explanation of a given text from the uploaded EPUB file.
+
 **Describe own name:** Provide a description of a given noun from the uploaded EPUB file.
+
 **Translate text:** Translate a given text from the uploaded EPUB file into a specified language.
+
 **Define word:** Provide a definition of a given word from the uploaded EPUB file.
 
 # **Usage**
