@@ -49,14 +49,3 @@ class VectorStore(IEpubTextDB):
         index_of_higher_score = [ i for i, _ in sorted(enumerate(list_of_distances), key=lambda x: x[1], reverse=True)[0:3] ]
         
         return [ list_of_ocurrences[i] for i in index_of_higher_score ] 
-
-
-
-    
-
-# #Chroma Vector Store
-# vector = VectorStore("test")
-# doc = '''Los seudocelomados1​, (Pseudocoelomata), asquelmintos (Aschelminthes), nematelmintos (Nemathelminthes) o blastocelomados (Blastoceolomata, nombre propuesto por Brusca & Brusca)2​ son una agrupación de filos cuya cavidad general no es de origen mesodérmico y recibe el nombre seudoceloma (o seudocele) o blastoceloma. Antiguamente formaron un filo único, los asquelmintos (del griego askos, ampolla o saco y helmins gusanos, gusanos que tienen un tubo, el digestivo, dentro de otro, la pared corporal), pero las diversas clases que lo componían son hoy consideradas como filos independientes.'''
-# vector.add(doc.split(' '), 
-#             [str(i) for i in range(1, len(doc.split(' '))+1)])
-# print(vector.get_synonym('identificador'))

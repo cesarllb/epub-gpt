@@ -2,7 +2,7 @@ import os
 import shutil
 from pathlib import Path
 from fastapi import UploadFile
-from inyection import config
+from setup import config
 from tempfile import NamedTemporaryFile
 from gpt.repo import GptRepo
 

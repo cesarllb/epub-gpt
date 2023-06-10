@@ -14,7 +14,7 @@ def config(epub_path:str = None, db_name:str = None):
     di['epub_ebook'] = epub_ebook
 
     #JsonDB used: pinkledb
-    di['db'] = ImplementedJsonDB(db_name)
+    di['db'] = ImplementedJsonDB(db_path)
 
     #GPT used: Poe
     di['gpt'] = PoeGPT(gpt_token, 'a2', 30)
@@ -22,5 +22,5 @@ def config(epub_path:str = None, db_name:str = None):
 def boostrap(epub_path: str = None, db_name:str = None):
     db_path = getenv('EPUB_GPT_JSON_DB', db_name)
     epub_path = getenv('EPUB_GPT_PATH', epub_path)
-    gpt_token = getenv('GPT_POE_KEY', "43PBP12f8kaplX0hkDxXFA%3D%3D")
+    gpt_token = getenv('GPT_POE_KEY', 'TOKEN')
     return db_path, epub_path, gpt_token
