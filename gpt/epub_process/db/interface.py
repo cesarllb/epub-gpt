@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-class IJsonDB(ABC):
+class IEpubTextDB(ABC):
     db:object
 
     @abstractmethod

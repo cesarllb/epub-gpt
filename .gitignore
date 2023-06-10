@@ -1,6 +1,7 @@
 test.*
-.vscode
+.vscode/
 epub-gpt/
+.chroma/
 # Byte-compiled / optimized / DLL files
 _pycache_/
 *.py[cod]

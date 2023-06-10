@@ -1,16 +1,16 @@
 import os
 import heapq
 import pickledb
-from .interface import IJsonDB
+from .interface import IEpubTextDB
 from pydantic import BaseModel
 
 class XhtmlJsonElement(BaseModel):
     xhtml_file_name:str
     p_list:list
 
-class ImplementedJsonDB(IJsonDB):
-    _db:pickledb
-    _xhtml_index:int
+class ImplementedJsonDB(IEpubTextDB):
+    # _db:pickledb
+    # _xhtml_index:int
 
     def __init__(self, db_name:str):            
         if os.path.exists(db_name+'.db'):

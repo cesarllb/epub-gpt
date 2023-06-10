@@ -2,7 +2,8 @@ from kink import di
 from os import getenv
 from ebooklib import epub
 from gpt.poe_api import PoeGPT
-from gpt.epub_process.db.database import ImplementedJsonDB
+from gpt.epub_process.db.json_database import ImplementedJsonDB
+from gpt.epub_process.db.vector_database import VectorStore
 
 
 def config(epub_path:str = None, db_name:str = None):
@@ -13,10 +14,10 @@ def config(epub_path:str = None, db_name:str = None):
     di['epub_ebook'] = epub_ebook
 
     #JsonDB used: pinkledb
-    di['json_db'] = ImplementedJsonDB(db_path)
+    di['db'] = ImplementedJsonDB(db_name)
 
     #GPT used: Poe
-    di['gpt'] = PoeGPT(gpt_token, 'chinchilla', 30)
+    di['gpt'] = PoeGPT(gpt_token, 'a2', 30)
 
 def boostrap(epub_path: str = None, db_name:str = None):
     db_path = getenv('EPUB_GPT_JSON_DB', db_name)

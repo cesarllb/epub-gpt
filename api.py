@@ -27,7 +27,7 @@ async def upload_epub(file: UploadFile = File(...)) -> str:
 async def resume(topic:str, check: None = Depends(check_gpt_repo)) -> str:
     data = gpt_repo.resume(topic)
     return_data = ReturnBase(operation = "epub_gpt.resume", result = data)
-    return return_data.json()
+    return return_data.json() + topic
 
 @app.post("/explain_text/", description="Provide an explanation of a given text from the uploaded EPUB file.")
 async def explain_text(text:str, check: None = Depends(check_gpt_repo)) -> str:
@@ -39,7 +39,6 @@ async def explain_text(text:str, check: None = Depends(check_gpt_repo)) -> str:
 @app.post("/describe_own_name/", description="Provide a description of a given noun from the uploaded EPUB file.")
 async def describe_own_name(noun:str, check: None = Depends(check_gpt_repo)) -> str:
     data = gpt_repo.describe_own_name(noun)
-    print(type(data))
     return_data = ReturnBase(operation = "epub_gpt.describe_own_name", result = data)
     return return_data.json()
     
@@ -55,13 +54,3 @@ async def define_word(word:str, check: None = Depends(check_gpt_repo)) -> str:
     return_data = ReturnBase(operation = "epub_gpt.define_word", result = data)
     return return_data.json()
 
-if __name__ =='__main__':
-    import uvicorn
-    try:
-        uvicorn.run(
-                app, 
-                host= '127.0.0.1', 
-                port= 8081,
-                )
-    except Exception as e:
-        print(e)

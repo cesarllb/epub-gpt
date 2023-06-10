@@ -1,11 +1,11 @@
-from .interface import IJsonDB
+from .interface import IEpubTextDB
 from kink import inject
 
 class Repository:
 
     @inject
-    def __init__(self, json_db:IJsonDB):
-        self._db = json_db
+    def __init__(self, db:IEpubTextDB):
+        self._db = db
 
     def insert(self, xhtml_file_name:str, p_list:list):
         self._db.insert(xhtml_file_name, p_list)
