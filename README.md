@@ -1,8 +1,8 @@
-## **EPUB Document Processor**
+# **EPUB Document Processor**
 
 This project is an EPUB document processor designed to enhance your reading experience. With features such as consultation, summarization, explanation, definition, and translation of the book’s text, this tool makes it easy to understand and engage with your favorite books.
 
-# **Features**
+## **Features**
 
 **Upload an EPUB file for processing:** Upload an EPUB file to be processed and stored in a vector or key-value database.
 
@@ -16,7 +16,7 @@ This project is an EPUB document processor designed to enhance your reading expe
 
 **Define word:** Provide a definition of a given word from the uploaded EPUB file.
 
-# **Usage**
+## **Usage**
 
 To use this project, you must first upload an EPUB file for processing using the /upload_epub/ endpoint. Once the file has been processed, you can use the other endpoints to generate summaries, explanations, descriptions, translations, and definitions.
 
@@ -31,7 +31,7 @@ To install this project, follow these steps:
 3. Build a Docker image using the provided Dockerfile.
 4. Run a Docker container using the built image.
  
-# **Building the Docker Image**
+### **Building the Docker Image**
 
 To build a Docker image using the provided Dockerfile, navigate to the root directory of this project and run the following command:
 
@@ -39,7 +39,8 @@ To build a Docker image using the provided Dockerfile, navigate to the root dire
 
 This will build a Docker image with the tag epub-document-processor.
 
-#**Running the Docker Container**#
+### **Running the Docker Container**#
+
 To run a Docker container using the built image, run the following command:
 
 `docker run -p 8000:8000 epub-document-processor`
